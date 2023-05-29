@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>CRUD Toko Elektronik</title>
     <!-- Custom fonts for this template -->
     <link href="{{asset('admin_assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link
@@ -70,8 +70,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Judul</h1>
-                    <p class="mb-4">Isi</p>
+                    <h1 class="h3 mb-2 text-gray-800 text-center">Tabel Barang Toko Elektronik</h1>
                     <!-- DataTables Example -->
                     <div class="card shadow mb-4">
                         @if (session('status'))
@@ -98,7 +97,7 @@
                                         <td>Rp.{{ $row->harga }}</td>
                                         <td>{{ $row->ketersediaan }}</td>
                                         <td>
-                                            <button type="button" value="" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapus">Delete</button>
+                                            <button type="button" value="{{ $row->id }}" class="btn btn-danger deleteBtn" data-bs-toggle="modal" data-bs-target="#modalHapus">Delete</button>
                                             <button type="button" value="{{ $row->id }}" class="btn btn-primary editBtn">Edit</button>
                                         </td>
                                     </tr>
@@ -119,7 +118,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; CRUD TrainingJunprogNeuron Laravel 8</span>
                     </div>
                 </div>
             </footer>
@@ -216,9 +215,11 @@
     <div id="modalHapus" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ url('add-barang') }}" method="POST">
+                <form action="{{ url('delete-barang') }}" method="POST">
                     @csrf
-                    <div class="modal-header">						
+                    @method('DELETE')
+                    <div class="modal-header">		
+                        <input type="hidden" id="id_delete" name="id_delete" value=""/>				
                         <h4 class="modal-title" id="modalHeading">Apakah Anda Yakin akan Menghapus Barang?</h4>
                     </div>
                     <div class="modal-footer">
@@ -251,7 +252,12 @@
 <script>
 
     $(document).ready(function () {
-        
+        $(document).on('click', '.deleteBtn', function() {
+            var id = $(this).val();
+            $('#modalHapus').modal('show');
+            $('#id_delete').val(id);
+
+        })
         $(document).on('click', '.editBtn', function() {
             var id = $(this).val();
             $('#modalEdit').modal('show');
@@ -267,6 +273,7 @@
                 }
                 });
             })
+            
         });
 </script>  
   

@@ -19,3 +19,5 @@ Route::post('add-barang', [BarangController::class, 'tambah'])->name('barang');
 
 Route::get('edit-barang/{id}', [BarangController::class, 'editBarang'])->name('readBarang');
 Route::put('update-barang', [BarangController::class, 'updateBarang'])->name('updateBarang');
+
+Route::delete('delete-barang', [BarangController::class, 'deleteBarang'])->name('deleteBarang');

@@ -49,4 +49,12 @@ class BarangController extends Controller
             'barang'=> $barang,
         ]);
     }
+
+    public function deleteBarang(Request $request)
+    {
+        $id_barang = $request->input('id_delete');
+        $barang = Barang::find($id_barang);
+        $barang->delete();
+        return redirect()->back()->with('status', 'Berhasil Menghapus Barang');
+    }
 }
